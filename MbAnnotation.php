@@ -19,9 +19,39 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
  * Class MbAnnotation
  *
  * @package MbAnnotation
- */
+ **/
 class MbAnnotation extends MbSingleton
 {
+
+    /**
+     * @var bool
+     *
+     * */
+    protected $ignoreCache = false;
+
+    /**
+     * @return bool
+     */
+    public function isIgnoreCache()
+    {
+        return $this->ignoreCache;
+    }
+
+    /**
+     * @param bool $ignoreCache
+     *
+     * @return MbAnnotation
+     */
+    public function setIgnoreCache($ignoreCache)
+    {
+        $this->ignoreCache = $ignoreCache;
+
+        if($ignoreCache){
+            Annotations::$config['cache'] = false;
+        }
+
+        return $this;
+    }
 
     /**
      * @param string     $controller
@@ -32,18 +62,18 @@ class MbAnnotation extends MbSingleton
      *
      * @throws MbException
      *
-     */
+     **/
     public function mbPage($controller, MocaBonita $mocaBonita = null)
     {
-        if(!file_exists(MbPath::pDir("/cache"))){
-            throw new MbException("The '".MbPath::pDir("/cache")."' cache directory does not exist!");
+        if (!$this->ignoreCache && !file_exists(MbPath::pDir("/cache"))) {
+            throw new MbException("The '" . MbPath::pDir("/cache") . "' cache directory does not exist!");
         }
 
         $cache = new FilesystemAdapter('annotation', 86400, MbPath::pDir("/cache"));
 
         $controllerCache = $cache->getItem(md5($controller));
 
-        if (!$controllerCache->isHit()) {
+        if (!$controllerCache->isHit() && !$this->ignoreCache) {
 
             $pages = Annotations::ofClass($controller, '@page');
 

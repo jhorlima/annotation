@@ -23,7 +23,7 @@ class MbAction extends MbResource
         $mbAction->setCapability($this->getCapability())
             ->setRequiresLogin($this->isLogin())
             ->setRequiresMethod($this->getMethod())
-            ->setRequiredParam($this->getParams())
+            ->setRequiredParams($this->getParams())
             ->setRules($this->getRules())
             ->setFunctionName($function)
             ->setFunctionComplement("");
