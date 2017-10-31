@@ -73,7 +73,7 @@ class MbAnnotation extends MbSingleton
 
         $controllerCache = $cache->getItem(md5($controller));
 
-        if (!$controllerCache->isHit() || !$this->ignoreCache) {
+        if (!$controllerCache->isHit() || $this->ignoreCache) {
 
             $pages = Annotations::ofClass($controller, '@page');
 
