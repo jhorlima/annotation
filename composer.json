@@ -1,0 +1,30 @@
+{
+  "name": "jhorlima/annotation",
+  "description": "Modulo para carregar páginas, ações, shortcode e assets por anotações na controller do MocaBonita",
+  "version": "1.0.0",
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "mocabonita",
+    "wp-mocabonita",
+    "annotation"
+  ],
+  "homepage": "https://github.com/jhorlima/annotation",
+  "type": "wordpress-framework-plugin",
+  "authors": [
+    {
+      "name": "Jhordan Lima",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MbAnnotation\\": "./"
+    }
+  },
+  "require": {
+    "jhorlima/wp-mocabonita": ">=3.3.0",
+    "symfony/cache": "3.4.x-dev",
+    "mindplay/annotations": "^1.3"
+  }
+}
